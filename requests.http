@@ -1,0 +1,36 @@
+# Manual API checks. Run `npm run dev` first.
+# Open in Cursor/VS Code with the REST Client extension and click "Send Request",
+# or use the curl equivalents at the bottom.
+# /api/health and /api/todos are example routes that don't exist yet; adjust to the routes you build.
+
+@baseUrl = http://localhost:3000
+
+### Health check
+GET {{baseUrl}}/api/health
+
+### List todos
+GET {{baseUrl}}/api/todos
+
+### Create a todo
+POST {{baseUrl}}/api/todos
+Content-Type: application/json
+
+{ "title": "Practise the interview flow" }
+
+### Create a todo with a missing title (expect 400)
+POST {{baseUrl}}/api/todos
+Content-Type: application/json
+
+{}
+
+### Create a todo with invalid JSON (expect 400)
+POST {{baseUrl}}/api/todos
+Content-Type: application/json
+
+not json
+
+# curl equivalents:
+# curl -i http://localhost:3000/api/health
+# curl -i http://localhost:3000/api/todos
+# curl -i -X POST http://localhost:3000/api/todos -H 'Content-Type: application/json' -d '{"title":"Practise"}'
+# curl -i -X POST http://localhost:3000/api/todos -H 'Content-Type: application/json' -d '{}'
